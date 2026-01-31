@@ -61,14 +61,14 @@ export default function DocsPage() {
       {/* Laser Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.05),transparent_70%)]" />
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent" />
-        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-pink-500/20 to-transparent" />
+        <div className="absolute top-0 left-1/4 w-px h-full bg-linear-to-b from-transparent via-purple-500/20 to-transparent" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-linear-to-b from-transparent via-pink-500/20 to-transparent" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-20 flex gap-8">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-64 shrink-0 self-start sticky top-24">
-          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
+        <aside className="hidden lg:block w-64 shrink-0 ">
+          <div className="rounded-2xl border fixed w-66 top-24 border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
             <h3 className="text-sm font-bold text-zinc-400 mb-4 uppercase tracking-wider">
               On This Page
             </h3>
