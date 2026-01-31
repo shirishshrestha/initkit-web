@@ -1,540 +1,371 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
-  ChevronRight,
-  BookOpen,
-  Zap,
-  Code,
-  Terminal as TerminalIcon,
-  Copy,
-} from "lucide-react";
-import Link from "next/link";
-
-interface Section {
-  id: string;
-  title: string;
-  icon: React.ReactNode;
-}
-
-const sections: Section[] = [
-  {
-    id: "getting-started",
-    title: "Getting Started",
-    icon: <Zap className="w-4 h-4" />,
-  },
-  { id: "features", title: "Features", icon: <BookOpen className="w-4 h-4" /> },
-  { id: "frameworks", title: "Frameworks", icon: <Code className="w-4 h-4" /> },
-  {
-    id: "cli",
-    title: "CLI Reference",
-    icon: <TerminalIcon className="w-4 h-4" />,
-  },
-  {
-    id: "examples",
-    title: "Usage Examples",
-    icon: <Code className="w-4 h-4" />,
-  },
-];
+  CodeBlock,
+  Callout,
+  PropsTable,
+  Step,
+  FeatureCard,
+  Badge,
+  SectionHeading,
+} from "@/components/docs/doc-components";
+import { Terminal, Zap, Box, Settings, Rocket, Package } from "lucide-react";
+import { useState } from "react";
 
 export default function DocsPage() {
-  const [activeSection, setActiveSection] = useState("getting-started");
+  const [activeSection, setActiveSection] = useState("quick-start");
+
+  const sections = [
+    { id: "quick-start", label: "Quick Start" },
+    { id: "features", label: "Features" },
+    { id: "cli-options", label: "CLI Options" },
+    { id: "advanced-usage", label: "Advanced Usage" },
+    { id: "templates", label: "Templates" },
+    { id: "troubleshooting", label: "Troubleshooting" },
+  ];
+
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+  const cliOptions = [
+    {
+      name: "--template",
+      type: "string",
+      description:
+        "Specify template: 'react', 'vue', 'nextjs', 'express', or 'fullstack'",
+    },
+    {
+      name: "--packageManager",
+      type: "string",
+      description: "Choose package manager: 'npm', 'yarn', 'pnpm', or 'bun'",
+    },
+    {
+      name: "--git",
+      type: "boolean",
+      default: "true",
+      description: "Initialize a Git repository",
+    },
+    {
+      name: "--skip-install",
+      type: "boolean",
+      description: "Skip automatic dependency installation",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white pt-24 pb-12">
-      <div className="container mx-auto max-w-7xl px-4">
-        {/* Breadcrumbs */}
-        <motion.nav
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 text-sm text-zinc-400 mb-8"
-        >
-          <Link href="/" className="hover:text-cyan-400 transition-colors">
-            Home
-          </Link>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-white">Documentation</span>
-        </motion.nav>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Laser Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.05),transparent_70%)]" />
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-pink-500/20 to-transparent" />
+      </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <motion.aside
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="w-full lg:w-64 lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] overflow-y-auto"
-          >
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4 backdrop-blur-sm">
-              <h3 className="text-sm font-semibold text-zinc-400 mb-3 uppercase tracking-wider">
-                Contents
-              </h3>
-              <nav className="space-y-1">
-                {sections.map((section) => (
-                  <button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
-                      activeSection === section.id
-                        ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
-                        : "text-zinc-400 hover:text-white hover:bg-zinc-800/50"
-                    }`}
-                  >
-                    {section.icon}
-                    {section.title}
-                  </button>
-                ))}
-              </nav>
+      <div className="relative max-w-7xl mx-auto px-6 py-20 flex gap-8">
+        {/* Sidebar */}
+        <aside className="hidden lg:block w-64 flex-shrink-0">
+          <div className="sticky top-24 rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6">
+            <h3 className="text-sm font-bold text-zinc-400 mb-4 uppercase tracking-wider">
+              On This Page
+            </h3>
+            <nav className="space-y-2">
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
+                    activeSection === section.id
+                      ? "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+                      : "text-zinc-400 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {section.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <div className="flex-1 max-w-4xl">
+          {/* Hero Section */}
+          <div className="mb-16">
+            <div className="flex items-center gap-2 mb-4">
+              <Badge variant="info">v1.1.0</Badge>
+              <Badge variant="success">Stable</Badge>
             </div>
-          </motion.aside>
+            <h1
+              className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400"
+              style={{ fontFamily: "var(--font-inter)" }}
+            >
+              InitKit Documentation
+            </h1>
+            <p className="text-xl text-zinc-400 max-w-3xl leading-relaxed">
+              The fastest way to bootstrap modern web projects. InitKit provides
+              intelligent scaffolding for React, Vue, Next.js, Express, and
+              full-stack applications with best practices built-in.
+            </p>
+          </div>
 
-          {/* Main Content */}
-          <motion.main
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="flex-1 min-w-0"
-          >
-            <AnimatePresence mode="wait">
-              {activeSection === "getting-started" && (
-                <GettingStarted key="getting-started" />
-              )}
-              {activeSection === "features" && <Features key="features" />}
-              {activeSection === "frameworks" && (
-                <Frameworks key="frameworks" />
-              )}
-              {activeSection === "cli" && <CLIReference key="cli" />}
-              {activeSection === "examples" && <Examples key="examples" />}
-            </AnimatePresence>
-          </motion.main>
+          {/* Quick Start Section */}
+          <section id="quick-start" className="mb-20 scroll-mt-24">
+            <SectionHeading>Quick Start</SectionHeading>
+            <div className="space-y-6">
+              <Step number={1} title="Install InitKit">
+                <p className="mb-4">
+                  Get started with InitKit using your preferred package manager:
+                </p>
+                <CodeBlock
+                  code="npx initkit my-app"
+                  language="bash"
+                  filename="Terminal"
+                />
+                <Callout type="tip" title="Pro Tip" className="mt-4">
+                  You don&apos;t need to install InitKit globally. Just run{" "}
+                  <code className="text-purple-400 font-mono text-sm">
+                    npx initkit
+                  </code>{" "}
+                  and you&apos;re ready to go!
+                </Callout>
+              </Step>
+
+              <Step number={2} title="Choose Your Stack">
+                <p className="mb-4">
+                  InitKit will guide you through an interactive setup:
+                </p>
+                <CodeBlock
+                  code={`? What type of project do you want to create?
+› Frontend Only
+  Backend Only
+  Full-Stack Application
+  Node.js Library/Package
+
+? Select your frontend framework:
+› React
+  Vue
+  Next.js
+  Svelte`}
+                  language="bash"
+                  filename="Interactive Prompts"
+                />
+              </Step>
+
+              <Step number={3} title="Start Building">
+                <p className="mb-4">
+                  Navigate to your project and start the development server:
+                </p>
+                <CodeBlock
+                  code={`cd my-app\nnpm run dev`}
+                  language="bash"
+                  filename="Terminal"
+                />
+                <Callout type="success" title="Success!" className="mt-4">
+                  Your project is now running at{" "}
+                  <strong>http://localhost:3000</strong>
+                </Callout>
+              </Step>
+            </div>
+          </section>
+
+          {/* Features Section */}
+          <section id="features" className="mb-20 scroll-mt-24">
+            <SectionHeading>Features</SectionHeading>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <FeatureCard
+                icon={<Terminal className="w-6 h-6" />}
+                title="Interactive CLI"
+                description="Beautiful terminal UI guides you through setup with intelligent defaults and validations."
+              />
+              <FeatureCard
+                icon={<Zap className="w-6 h-6" />}
+                title="Lightning Fast"
+                description="Optimized templates with minimal dependencies. Get up and running in seconds, not minutes."
+              />
+              <FeatureCard
+                icon={<Box className="w-6 h-6" />}
+                title="Multiple Templates"
+                description="Choose from React, Vue, Next.js, Express, or full-stack configurations."
+              />
+              <FeatureCard
+                icon={<Settings className="w-6 h-6" />}
+                title="Smart Defaults"
+                description="ESLint, Prettier, TypeScript, and Git configured out of the box."
+              />
+              <FeatureCard
+                icon={<Rocket className="w-6 h-6" />}
+                title="Production Ready"
+                description="Industry best practices and optimizations baked into every template."
+              />
+              <FeatureCard
+                icon={<Package className="w-6 h-6" />}
+                title="Package Manager Agnostic"
+                description="Works seamlessly with npm, yarn, pnpm, or bun."
+              />
+            </div>
+          </section>
+
+          {/* CLI Options Section */}
+          <section id="cli-options" className="mb-20 scroll-mt-24">
+            <SectionHeading>CLI Options</SectionHeading>
+            <p className="text-zinc-400 mb-6">
+              Customize your project setup with these command-line options:
+            </p>
+            <PropsTable props={cliOptions} />
+            <div className="mt-6">
+              <CodeBlock
+                code="npx initkit my-app --template nextjs --packageManager pnpm --git"
+                language="bash"
+                filename="Example: Create Next.js project with pnpm"
+              />
+            </div>
+          </section>
+
+          {/* Advanced Usage Section */}
+          <section id="advanced-usage" className="mb-20 scroll-mt-24">
+            <SectionHeading>Advanced Usage</SectionHeading>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Using a Specific Template
+                </h3>
+                <CodeBlock
+                  code="npx initkit my-app --template react --packageManager yarn"
+                  language="bash"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Skip Dependency Installation
+                </h3>
+                <CodeBlock
+                  code="npx initkit my-app --skip-install"
+                  language="bash"
+                />
+                <Callout type="info" title="Note" className="mt-4">
+                  Use{" "}
+                  <code className="text-purple-400 font-mono text-sm">
+                    --skip-install
+                  </code>{" "}
+                  to defer package installation. Useful for CI/CD pipelines or
+                  when you want to review dependencies first.
+                </Callout>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Disable Git Initialization
+                </h3>
+                <CodeBlock code="npx initkit my-app --no-git" language="bash" />
+              </div>
+            </div>
+          </section>
+
+          {/* Templates Section */}
+          <section id="templates" className="mb-20 scroll-mt-24">
+            <SectionHeading>Available Templates</SectionHeading>
+            <div className="space-y-6">
+              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <h3 className="text-2xl font-bold text-white">React</h3>
+                  <Badge variant="success">Popular</Badge>
+                </div>
+                <p className="text-zinc-400 mb-4">
+                  Modern React setup with Vite, TypeScript, ESLint, and
+                  Prettier. Includes routing, state management setup, and
+                  component examples.
+                </p>
+                <CodeBlock
+                  code="npx initkit my-react-app --template react"
+                  language="bash"
+                />
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <h3 className="text-2xl font-bold text-white">Next.js</h3>
+                  <Badge variant="success">Popular</Badge>
+                </div>
+                <p className="text-zinc-400 mb-4">
+                  Production-ready Next.js with App Router, TypeScript, Tailwind
+                  CSS, and optimized configurations.
+                </p>
+                <CodeBlock
+                  code="npx initkit my-nextjs-app --template nextjs"
+                  language="bash"
+                />
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <h3 className="text-2xl font-bold text-white">Express</h3>
+                </div>
+                <p className="text-zinc-400 mb-4">
+                  Backend API with Express, TypeScript, middleware, and database
+                  setup. Includes authentication and error handling.
+                </p>
+                <CodeBlock
+                  code="npx initkit my-backend --template express"
+                  language="bash"
+                />
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <h3 className="text-2xl font-bold text-white">Full-Stack</h3>
+                  <Badge variant="info">Monorepo</Badge>
+                </div>
+                <p className="text-zinc-400 mb-4">
+                  Complete full-stack setup with frontend and backend in a
+                  monorepo structure. Perfect for unified deployment.
+                </p>
+                <CodeBlock
+                  code="npx initkit my-fullstack-app --template fullstack"
+                  language="bash"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Troubleshooting Section */}
+          <section id="troubleshooting" className="mb-20 scroll-mt-24">
+            <SectionHeading>Troubleshooting</SectionHeading>
+            <div className="space-y-6">
+              <Callout type="warning" title="Permission Errors">
+                If you encounter permission errors on Unix systems, try running
+                with{" "}
+                <code className="text-yellow-400 font-mono text-sm">sudo</code>{" "}
+                or ensure your user has proper npm permissions.
+              </Callout>
+              <Callout type="info" title="Network Issues">
+                If package installation fails due to network issues, try using a
+                different package manager or check your proxy settings.
+              </Callout>
+              <Callout type="danger" title="Node Version">
+                InitKit requires Node.js 18.0.0 or higher. Run{" "}
+                <code className="text-red-400 font-mono text-sm">
+                  node --version
+                </code>{" "}
+                to check your version.
+              </Callout>
+            </div>
+          </section>
+
+          {/* Footer CTA */}
+          <div className="mt-20 p-10 rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-pink-500/10">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Ready to build something amazing?
+            </h2>
+            <p className="text-zinc-300 mb-6">
+              Get started with InitKit today and experience the fastest way to
+              scaffold modern web projects.
+            </p>
+            <CodeBlock code="npx initkit my-app" language="bash" />
+          </div>
         </div>
       </div>
     </div>
-  );
-}
-
-// Section Components
-function GettingStarted() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className="prose prose-invert prose-cyan max-w-none"
-    >
-      <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        Getting Started
-      </h1>
-
-      <div className="space-y-6">
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-2xl font-bold mb-4 text-white">Installation</h2>
-          <p className="text-zinc-400 mb-4">
-            Install InitKit globally using npm:
-          </p>
-          <pre className="bg-black rounded-lg p-4 overflow-x-auto">
-            <code className="text-cyan-400 font-mono text-sm">
-              npm install -g initkit
-            </code>
-          </pre>
-        </div>
-
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-2xl font-bold mb-4 text-white">
-            Create Your First Project
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <p className="text-zinc-400 mb-2">
-                Interactive mode with step-by-step prompts:
-              </p>
-              <pre className="bg-black rounded-lg p-4 overflow-x-auto">
-                <code className="text-cyan-400 font-mono text-sm">initkit</code>
-              </pre>
-            </div>
-            <div>
-              <p className="text-zinc-400 mb-2">
-                Quick start with project name:
-              </p>
-              <pre className="bg-black rounded-lg p-4 overflow-x-auto">
-                <code className="text-cyan-400 font-mono text-sm">
-                  initkit my-awesome-app
-                </code>
-              </pre>
-            </div>
-            <div>
-              <p className="text-zinc-400 mb-2">
-                Skip all prompts and use sensible defaults:
-              </p>
-              <pre className="bg-black rounded-lg p-4 overflow-x-auto">
-                <code className="text-cyan-400 font-mono text-sm">
-                  initkit my-app --yes
-                </code>
-              </pre>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-6">
-          <h3 className="text-xl font-bold mb-3 text-cyan-400">Why InitKit?</h3>
-          <ul className="space-y-2 text-zinc-300">
-            <li className="flex items-start gap-2">
-              <span className="text-cyan-400 mt-1">•</span>
-              <span>
-                <strong>CLI-First Architecture</strong> - Uses official
-                framework CLIs for latest best practices
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-cyan-400 mt-1">•</span>
-              <span>
-                <strong>Always Up-to-Date</strong> - Leverages official CLIs to
-                ensure latest configurations
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-cyan-400 mt-1">•</span>
-              <span>
-                <strong>Production Ready</strong> - ESLint, Prettier, Git hooks,
-                and CI/CD pipelines out of the box
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-cyan-400 mt-1">•</span>
-              <span>
-                <strong>Automatic Rollback</strong> - Failed installations clean
-                up automatically
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function Features() {
-  const features = [
-    {
-      title: "Project Types",
-      items: [
-        "Frontend Only - React, Vue, Next.js apps",
-        "Backend Only - Express, NestJS, Fastify servers",
-        "Node.js Library - Publishable npm packages",
-      ],
-    },
-    {
-      title: "Development Tools",
-      items: [
-        "ESLint with recommended rules",
-        "Prettier opinionated formatting",
-        "Husky Git hooks",
-        "Jest/Vitest testing",
-        "Docker multi-stage builds",
-      ],
-    },
-    {
-      title: "Styling Solutions",
-      items: [
-        "Tailwind CSS",
-        "CSS Modules",
-        "Styled Components",
-        "Emotion",
-        "Sass/SCSS",
-        "Plain CSS",
-      ],
-    },
-    {
-      title: "Additional Libraries",
-      items: [
-        "Redux Toolkit",
-        "Zustand",
-        "TanStack Query",
-        "React Router",
-        "Framer Motion",
-        "ShadCN UI",
-      ],
-    },
-  ];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
-      <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        Features
-      </h1>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        {features.map((feature, idx) => (
-          <div
-            key={idx}
-            className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6"
-          >
-            <h3 className="text-xl font-bold mb-4 text-cyan-400">
-              {feature.title}
-            </h3>
-            <ul className="space-y-2">
-              {feature.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-zinc-300">
-                  <span className="text-cyan-400 mt-1">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-function Frameworks() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
-      <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        Supported Frameworks
-      </h1>
-
-      <div className="space-y-6">
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="text-2xl font-bold mb-4 text-white">
-            Frontend Frameworks
-          </h3>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
-              <h4 className="font-bold text-cyan-400 mb-2">React + Vite</h4>
-              <p className="text-sm text-zinc-400">
-                Fast HMR, modern build tool
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
-              <h4 className="font-bold text-cyan-400 mb-2">Next.js</h4>
-              <p className="text-sm text-zinc-400">
-                App Router with TypeScript
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
-              <h4 className="font-bold text-cyan-400 mb-2">Vue.js + Vite</h4>
-              <p className="text-sm text-zinc-400">Progressive framework</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="text-2xl font-bold mb-4 text-white">
-            Backend Frameworks
-          </h3>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
-              <h4 className="font-bold text-cyan-400 mb-2">Express.js</h4>
-              <p className="text-sm text-zinc-400">Minimalist & flexible</p>
-            </div>
-            <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700 opacity-60">
-              <h4 className="font-bold text-zinc-400 mb-2">
-                NestJS (Coming Soon)
-              </h4>
-              <p className="text-sm text-zinc-500">Enterprise TypeScript</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="text-2xl font-bold mb-4 text-white">Databases</h3>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-              <p className="font-semibold text-cyan-400">PostgreSQL</p>
-            </div>
-            <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-              <p className="font-semibold text-cyan-400">MySQL</p>
-            </div>
-            <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-              <p className="font-semibold text-cyan-400">MongoDB</p>
-            </div>
-            <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-              <p className="font-semibold text-cyan-400">SQLite</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function CLIReference() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
-      <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        CLI Reference
-      </h1>
-
-      <div className="space-y-6">
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="text-2xl font-bold mb-4 text-white">Commands</h3>
-          <div className="space-y-4">
-            <div className="border-l-4 border-cyan-500 pl-4">
-              <code className="text-cyan-400 font-mono">
-                initkit [project-name] [options]
-              </code>
-              <p className="text-zinc-400 mt-2">
-                Create a new project (default command)
-              </p>
-            </div>
-            <div className="border-l-4 border-cyan-500 pl-4">
-              <code className="text-cyan-400 font-mono">initkit list</code>
-              <p className="text-zinc-400 mt-2">
-                List available templates and frameworks
-              </p>
-            </div>
-            <div className="border-l-4 border-cyan-500 pl-4">
-              <code className="text-cyan-400 font-mono">initkit info</code>
-              <p className="text-zinc-400 mt-2">
-                Display CLI information and version
-              </p>
-            </div>
-            <div className="border-l-4 border-cyan-500 pl-4">
-              <code className="text-cyan-400 font-mono">initkit --help</code>
-              <p className="text-zinc-400 mt-2">Show help with examples</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 overflow-x-auto">
-          <h3 className="text-2xl font-bold mb-4 text-white">Options</h3>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-zinc-700">
-                <th className="text-left py-2 text-cyan-400">Option</th>
-                <th className="text-left py-2 text-cyan-400">Alias</th>
-                <th className="text-left py-2 text-cyan-400">Description</th>
-              </tr>
-            </thead>
-            <tbody className="text-zinc-300">
-              <tr className="border-b border-zinc-800">
-                <td className="py-2 font-mono">--version</td>
-                <td className="py-2 font-mono">-v</td>
-                <td className="py-2">Output the current version</td>
-              </tr>
-              <tr className="border-b border-zinc-800">
-                <td className="py-2 font-mono">--template</td>
-                <td className="py-2 font-mono">-t</td>
-                <td className="py-2">Specify template (react, vue, express)</td>
-              </tr>
-              <tr className="border-b border-zinc-800">
-                <td className="py-2 font-mono">--yes</td>
-                <td className="py-2 font-mono">-y</td>
-                <td className="py-2">Skip prompts, use defaults</td>
-              </tr>
-              <tr className="border-b border-zinc-800">
-                <td className="py-2 font-mono">--typescript</td>
-                <td className="py-2 font-mono">--ts</td>
-                <td className="py-2">Use TypeScript</td>
-              </tr>
-              <tr className="border-b border-zinc-800">
-                <td className="py-2 font-mono">--no-git</td>
-                <td className="py-2 font-mono">-</td>
-                <td className="py-2">Skip Git initialization</td>
-              </tr>
-              <tr className="border-b border-zinc-800">
-                <td className="py-2 font-mono">--package-manager</td>
-                <td className="py-2 font-mono">-p</td>
-                <td className="py-2">Use npm, yarn, pnpm, or bun</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function Examples() {
-  const examples = [
-    {
-      title: "React + TypeScript + Tailwind",
-      command: "initkit my-react-app",
-      description:
-        "Select: Frontend Only → React → TypeScript → Tailwind CSS → ESLint + Prettier",
-    },
-    {
-      title: "Next.js with TypeScript",
-      command: "initkit nextjs-app",
-      description:
-        "Select: Frontend Only → Next.js → TypeScript → Tailwind CSS",
-    },
-    {
-      title: "Express Backend API",
-      command: "initkit api-server",
-      description:
-        "Select: Backend Only → Express → JavaScript → MVC structure",
-    },
-    {
-      title: "Quick Start with Defaults",
-      command: "initkit quick-app --yes",
-      description: "Creates a React + Vite app with TypeScript + Tailwind CSS",
-    },
-  ];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
-      <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-        Usage Examples
-      </h1>
-
-      <div className="grid gap-6">
-        {examples.map((example, idx) => (
-          <div
-            key={idx}
-            className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6"
-          >
-            <h3 className="text-xl font-bold mb-3 text-cyan-400">
-              {example.title}
-            </h3>
-            <pre className="bg-black rounded-lg p-4 mb-3 overflow-x-auto">
-              <code className="text-cyan-400 font-mono text-sm">
-                {example.command}
-              </code>
-            </pre>
-            <p className="text-zinc-400 text-sm">{example.description}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-8 rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-6">
-        <h3 className="text-xl font-bold mb-3 text-cyan-400">
-          Interactive Prompt Flow
-        </h3>
-        <p className="text-zinc-300 mb-3">
-          InitKit uses an intelligent 13-question flow that adapts based on your
-          project type:
-        </p>
-        <ol className="list-decimal list-inside space-y-2 text-zinc-300 text-sm">
-          <li>Project Type (Frontend, Backend, or Library)</li>
-          <li>Project Name (with real-time validation)</li>
-          <li>Framework Selection</li>
-          <li>Language (TypeScript or JavaScript)</li>
-          <li>Folder Structure</li>
-          <li>TypeScript Strictness</li>
-          <li>Styling Solution</li>
-          <li>Additional Libraries</li>
-          <li>Development Features</li>
-          <li>Package Manager</li>
-          <li>Git Initialization</li>
-        </ol>
-      </div>
-    </motion.div>
   );
 }

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Terminal } from "lucide-react";
+import { Terminal, Star } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -44,6 +44,15 @@ export function Navbar() {
             {link.label}
           </Link>
         ))}
+
+        <Link
+          href="https://github.com/shirishshrestha/initkit"
+          target="_blank"
+          className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 hover:bg-yellow-400/20 transition-all"
+        >
+          <Star className="w-4 h-4 fill-yellow-400" />
+          <span>Star</span>
+        </Link>
       </nav>
     </motion.header>
   );

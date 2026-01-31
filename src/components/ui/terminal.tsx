@@ -8,25 +8,34 @@ import { useEffect, useRef, useState } from "react";
 export function Terminal({ className }: { className?: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const [text, setText] = useState("");
-  const fullText = "npx initkit my-app";
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    { type: "command", text: "npx initkit my-app", delay: 0 },
+    { type: "output", text: "", delay: 500 },
+    { type: "question", text: "Let's set up your project!", delay: 800 },
+    {
+      type: "prompt",
+      text: "? What type of project do you want to create?",
+      delay: 1200,
+    },
+    {
+      type: "option",
+      text: "  \u276f Frontend Only",
+      delay: 1400,
+      active: true,
+    },
+    { type: "option", text: "    Backend Only", delay: 1500 },
+    { type: "option", text: "    Node.js Library/Package", delay: 1600 },
+  ];
 
   useEffect(() => {
     if (isInView) {
-      let currentText = "";
-      let currentIndex = 0;
-
-      const interval = setInterval(() => {
-        if (currentIndex < fullText.length) {
-          currentText += fullText[currentIndex];
-          setText(currentText);
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 100);
-
-      return () => clearInterval(interval);
+      steps.forEach((step, index) => {
+        setTimeout(() => {
+          setCurrentStep(index + 1);
+        }, step.delay);
+      });
     }
   }, [isInView]);
 
@@ -37,7 +46,7 @@ export function Terminal({ className }: { className?: string }) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: 0.2 }}
       className={cn(
-        "w-full max-w-lg mx-auto overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl",
+        "w-full text-start max-w-lg mx-auto overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl",
         className,
       )}
     >
@@ -48,33 +57,38 @@ export function Terminal({ className }: { className?: string }) {
           <div className="h-3 w-3 rounded-full bg-green-500/20" />
         </div>
         <div className="flex items-center gap-1.5 ml-2 text-xs text-zinc-500 font-mono">
-          <TerminalIcon className="w-3.5 h-3.5" />
+          <TerminalIcon className="w-3 h-3" />
           <span>bash</span>
         </div>
       </div>
-      <div className="p-4 font-mono text-sm text-zinc-300 min-h-[140px]">
-        <div className="flex items-center gap-2">
-          <span className="text-green-400">➜</span>
-          <span className="text-cyan-400">~</span>
-          <span>{text}</span>
-          <motion.span
-            animate={{ opacity: [1, 0] }}
-            transition={{ repeat: Infinity, duration: 0.8 }}
-            className="h-4 w-2 bg-zinc-500 block"
-          />
-        </div>
-        {text === fullText && (
+      <div className="p-6 font-mono text-sm min-h-60">
+        {steps.slice(0, currentStep).map((step, index) => (
           <motion.div
+            key={index}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-2 text-zinc-500"
+            transition={{ duration: 0.2 }}
+            className={cn(
+              "mb-2",
+              step.type === "command" && "text-cyan-400",
+              step.type === "output" && "text-zinc-500",
+              step.type === "question" && "text-purple-400 font-bold mt-3",
+              step.type === "prompt" && "text-green-400 mt-2",
+              step.type === "option" && "text-zinc-300",
+              step.active && "text-cyan-300 font-semibold",
+            )}
           >
-            <span className="text-green-500">?</span> What type of project do
-            you want to create? <br />
-            <span className="text-cyan-300">❯ Frontend Only</span>
+            {step.type === "command" && (
+              <span>
+                <span className="text-green-400">\u279c</span> {step.text}
+              </span>
+            )}
+            {step.type !== "command" && step.text}
+            {step.type === "option" &&
+              currentStep === steps.length &&
+              step.active && <span className="animate-pulse">|</span>}
           </motion.div>
-        )}
+        ))}
       </div>
     </motion.div>
   );
