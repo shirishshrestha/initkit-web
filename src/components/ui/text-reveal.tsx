@@ -1,0 +1,75 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+
+interface TextRevealProps {
+  text: string;
+  className?: string;
+  delay?: number;
+}
+
+export function TextReveal({ text, className, delay = 0 }: TextRevealProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-10%" });
+  const words = text.split(" ");
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.04 * i + delay },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      filter: "blur(10px)",
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{
+        overflow: "hidden",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+      }}
+      variants={container as any}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className={cn("text-center", className)}
+    >
+      {words.map((word, index) => (
+        <motion.span
+          variants={child as any}
+          style={{ marginRight: "0.25em" }}
+          key={index}
+          className="inline-block"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </motion.div>
+  );
+}

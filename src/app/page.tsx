@@ -1,8 +1,13 @@
+import { Hero } from "@/components/sections/hero";
+import { Features } from "@/components/sections/features";
+import { LaserFlow } from "@/components/ui/laser-flow";
+
 export default function Home() {
   return (
-    <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
-      <h1>Welcome to undefined</h1>
-      <p>Get started by editing <code>src/app/page.tsx</code></p>
-    </div>
-  )
+    <main className="min-h-screen bg-black text-white">
+      <Hero />
+      <LaserFlow />
+      <Features />
+    </main>
+  );
 }
