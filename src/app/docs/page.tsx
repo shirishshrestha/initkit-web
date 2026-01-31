@@ -57,7 +57,7 @@ export default function DocsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden pt-12">
       {/* Laser Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.05),transparent_70%)]" />
@@ -67,8 +67,8 @@ export default function DocsPage() {
 
       <div className="relative max-w-7xl mx-auto px-6 py-20 flex gap-8">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-64 shrink-0">
-          <div className="sticky top-28 rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
+        <aside className="hidden lg:block w-64 shrink-0 self-start sticky top-24">
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
             <h3 className="text-sm font-bold text-zinc-400 mb-4 uppercase tracking-wider">
               On This Page
             </h3>
