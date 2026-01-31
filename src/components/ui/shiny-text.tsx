@@ -15,7 +15,7 @@ export function ShinyText({ text, className, speed = 5 }: ShinyTextProps) {
     <motion.span
       className={cn(
         "relative inline-block bg-gradient-to-r from-zinc-400 via-white to-zinc-400 bg-clip-text text-transparent bg-[length:200%_auto]",
-        className
+        className,
       )}
       animate={{
         backgroundPosition: ["0% center", "200% center"],
@@ -49,8 +49,14 @@ export function VariableProximity({
   const y = useMotionValue(0);
 
   const springConfig = { damping: 25, stiffness: 150 };
-  const scaleX = useSpring(useTransform(x, [-distance, 0, distance], [1, scale, 1]), springConfig);
-  const scaleY = useSpring(useTransform(y, [-distance, 0, distance], [1, scale, 1]), springConfig);
+  const scaleX = useSpring(
+    useTransform(x, [-distance, 0, distance], [1, scale, 1]),
+    springConfig,
+  );
+  const scaleY = useSpring(
+    useTransform(y, [-distance, 0, distance], [1, scale, 1]),
+    springConfig,
+  );
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;

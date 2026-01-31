@@ -20,7 +20,9 @@ export function FallingText({
   const words = text.split(" ");
 
   return (
-    <div className={cn("flex flex-wrap justify-center gap-x-2 gap-y-1", className)}>
+    <div
+      className={cn("flex flex-wrap justify-center gap-x-2 gap-y-1", className)}
+    >
       {words.map((word, wordIndex) => (
         <motion.span
           key={`${word}-${wordIndex}`}

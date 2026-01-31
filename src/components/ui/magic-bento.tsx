@@ -14,7 +14,7 @@ export function MagicBento({ children, className }: BentoGridProps) {
     <div
       className={cn(
         "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-auto",
-        className
+        className,
       )}
     >
       {children}
@@ -65,7 +65,7 @@ export function BentoCard({
         colSpan === 3 && "lg:col-span-3",
         rowSpan === 2 && "md:row-span-2",
         rowSpan === 3 && "md:row-span-3",
-        className
+        className,
       )}
     >
       {spotlight && (

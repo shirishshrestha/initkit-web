@@ -7,6 +7,7 @@ Built with Next.js 16, React Bits components, and the Chillax typeface.
 ## 🎨 Design System
 
 ### Typography
+
 - **Primary Font**: Chillax (variable font with weights 200-700)
 - **Monospace**: Fira Code for code snippets
 - **Responsive**: Fluid typography scales across devices
@@ -14,6 +15,7 @@ Built with Next.js 16, React Bits components, and the Chillax typeface.
 ### Components (React Bits)
 
 #### Implemented Components
+
 - **Falling Text** - Animated hero headline with word-by-word reveal
 - **Magic Bento** - Responsive grid layout with spotlight effects
 - **Laser Flow** - Animated SVG background with flowing lines and particles
@@ -22,6 +24,7 @@ Built with Next.js 16, React Bits components, and the Chillax typeface.
 - **Spotlight Card** - Cards with dynamic mouse-following spotlight
 
 ### Color Palette
+
 - **Primary**: Cyan (#06b6d4) for interactive elements
 - **Background**: Zinc-950 to Black gradient
 - **Text**: White to Zinc-400 hierarchy
@@ -30,6 +33,7 @@ Built with Next.js 16, React Bits components, and the Chillax typeface.
 ## 🚀 Features
 
 ### Home Page
+
 - Animated hero section with Falling Text
 - Interactive copy-to-clipboard for CLI command
 - Laser Flow visual separator
@@ -38,6 +42,7 @@ Built with Next.js 16, React Bits components, and the Chillax typeface.
 - Smooth scroll animations with Framer Motion
 
 ### Documentation Page
+
 - Sticky sidebar navigation
 - 5 comprehensive sections:
   - Getting Started
@@ -51,6 +56,7 @@ Built with Next.js 16, React Bits components, and the Chillax typeface.
 - Breadcrumb navigation
 
 ### Navigation
+
 - Fixed floating navbar with backdrop blur
 - Smooth spring animations on mount
 - Active route highlighting
@@ -59,11 +65,13 @@ Built with Next.js 16, React Bits components, and the Chillax typeface.
 ## 📱 Responsiveness
 
 All components are fully responsive with breakpoints:
+
 - **Mobile**: < 768px (sm)
 - **Tablet**: 768px - 1024px (md)
 - **Desktop**: > 1024px (lg)
 
 ### Mobile Optimizations
+
 - Bento grid stacks vertically on mobile
 - Hero text scales fluidly (4xl → 7xl)
 - Navigation collapses appropriately
@@ -117,6 +125,7 @@ website/
 ## 🎯 Documentation Parity
 
 Website docs mirror NPM package README.md content with enhanced UI:
+
 - All 865 lines of NPM README covered
 - Interactive examples
 - Visual feature showcase
@@ -158,6 +167,7 @@ npm start
 ## ✨ Animations
 
 All animations use Framer Motion for:
+
 - Smooth 60fps performance
 - Hardware acceleration
 - Reduced motion support

@@ -2,7 +2,14 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, BookOpen, Zap, Code, Terminal as TerminalIcon, Copy } from "lucide-react";
+import {
+  ChevronRight,
+  BookOpen,
+  Zap,
+  Code,
+  Terminal as TerminalIcon,
+  Copy,
+} from "lucide-react";
 import Link from "next/link";
 
 interface Section {
@@ -12,11 +19,23 @@ interface Section {
 }
 
 const sections: Section[] = [
-  { id: "getting-started", title: "Getting Started", icon: <Zap className="w-4 h-4" /> },
+  {
+    id: "getting-started",
+    title: "Getting Started",
+    icon: <Zap className="w-4 h-4" />,
+  },
   { id: "features", title: "Features", icon: <BookOpen className="w-4 h-4" /> },
   { id: "frameworks", title: "Frameworks", icon: <Code className="w-4 h-4" /> },
-  { id: "cli", title: "CLI Reference", icon: <TerminalIcon className="w-4 h-4" /> },
-  { id: "examples", title: "Usage Examples", icon: <Code className="w-4 h-4" /> },
+  {
+    id: "cli",
+    title: "CLI Reference",
+    icon: <TerminalIcon className="w-4 h-4" />,
+  },
+  {
+    id: "examples",
+    title: "Usage Examples",
+    icon: <Code className="w-4 h-4" />,
+  },
 ];
 
 export default function DocsPage() {
@@ -76,9 +95,13 @@ export default function DocsPage() {
             className="flex-1 min-w-0"
           >
             <AnimatePresence mode="wait">
-              {activeSection === "getting-started" && <GettingStarted key="getting-started" />}
+              {activeSection === "getting-started" && (
+                <GettingStarted key="getting-started" />
+              )}
               {activeSection === "features" && <Features key="features" />}
-              {activeSection === "frameworks" && <Frameworks key="frameworks" />}
+              {activeSection === "frameworks" && (
+                <Frameworks key="frameworks" />
+              )}
               {activeSection === "cli" && <CLIReference key="cli" />}
               {activeSection === "examples" && <Examples key="examples" />}
             </AnimatePresence>
@@ -101,35 +124,51 @@ function GettingStarted() {
       <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
         Getting Started
       </h1>
-      
+
       <div className="space-y-6">
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
           <h2 className="text-2xl font-bold mb-4 text-white">Installation</h2>
-          <p className="text-zinc-400 mb-4">Install InitKit globally using npm:</p>
+          <p className="text-zinc-400 mb-4">
+            Install InitKit globally using npm:
+          </p>
           <pre className="bg-black rounded-lg p-4 overflow-x-auto">
-            <code className="text-cyan-400 font-mono text-sm">npm install -g initkit</code>
+            <code className="text-cyan-400 font-mono text-sm">
+              npm install -g initkit
+            </code>
           </pre>
         </div>
 
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-2xl font-bold mb-4 text-white">Create Your First Project</h2>
+          <h2 className="text-2xl font-bold mb-4 text-white">
+            Create Your First Project
+          </h2>
           <div className="space-y-4">
             <div>
-              <p className="text-zinc-400 mb-2">Interactive mode with step-by-step prompts:</p>
+              <p className="text-zinc-400 mb-2">
+                Interactive mode with step-by-step prompts:
+              </p>
               <pre className="bg-black rounded-lg p-4 overflow-x-auto">
                 <code className="text-cyan-400 font-mono text-sm">initkit</code>
               </pre>
             </div>
             <div>
-              <p className="text-zinc-400 mb-2">Quick start with project name:</p>
+              <p className="text-zinc-400 mb-2">
+                Quick start with project name:
+              </p>
               <pre className="bg-black rounded-lg p-4 overflow-x-auto">
-                <code className="text-cyan-400 font-mono text-sm">initkit my-awesome-app</code>
+                <code className="text-cyan-400 font-mono text-sm">
+                  initkit my-awesome-app
+                </code>
               </pre>
             </div>
             <div>
-              <p className="text-zinc-400 mb-2">Skip all prompts and use sensible defaults:</p>
+              <p className="text-zinc-400 mb-2">
+                Skip all prompts and use sensible defaults:
+              </p>
               <pre className="bg-black rounded-lg p-4 overflow-x-auto">
-                <code className="text-cyan-400 font-mono text-sm">initkit my-app --yes</code>
+                <code className="text-cyan-400 font-mono text-sm">
+                  initkit my-app --yes
+                </code>
               </pre>
             </div>
           </div>
@@ -140,19 +179,31 @@ function GettingStarted() {
           <ul className="space-y-2 text-zinc-300">
             <li className="flex items-start gap-2">
               <span className="text-cyan-400 mt-1">•</span>
-              <span><strong>CLI-First Architecture</strong> - Uses official framework CLIs for latest best practices</span>
+              <span>
+                <strong>CLI-First Architecture</strong> - Uses official
+                framework CLIs for latest best practices
+              </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-cyan-400 mt-1">•</span>
-              <span><strong>Always Up-to-Date</strong> - Leverages official CLIs to ensure latest configurations</span>
+              <span>
+                <strong>Always Up-to-Date</strong> - Leverages official CLIs to
+                ensure latest configurations
+              </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-cyan-400 mt-1">•</span>
-              <span><strong>Production Ready</strong> - ESLint, Prettier, Git hooks, and CI/CD pipelines out of the box</span>
+              <span>
+                <strong>Production Ready</strong> - ESLint, Prettier, Git hooks,
+                and CI/CD pipelines out of the box
+              </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-cyan-400 mt-1">•</span>
-              <span><strong>Automatic Rollback</strong> - Failed installations clean up automatically</span>
+              <span>
+                <strong>Automatic Rollback</strong> - Failed installations clean
+                up automatically
+              </span>
             </li>
           </ul>
         </div>
@@ -165,19 +216,43 @@ function Features() {
   const features = [
     {
       title: "Project Types",
-      items: ["Frontend Only - React, Vue, Next.js apps", "Backend Only - Express, NestJS, Fastify servers", "Node.js Library - Publishable npm packages"],
+      items: [
+        "Frontend Only - React, Vue, Next.js apps",
+        "Backend Only - Express, NestJS, Fastify servers",
+        "Node.js Library - Publishable npm packages",
+      ],
     },
     {
       title: "Development Tools",
-      items: ["ESLint with recommended rules", "Prettier opinionated formatting", "Husky Git hooks", "Jest/Vitest testing", "Docker multi-stage builds"],
+      items: [
+        "ESLint with recommended rules",
+        "Prettier opinionated formatting",
+        "Husky Git hooks",
+        "Jest/Vitest testing",
+        "Docker multi-stage builds",
+      ],
     },
     {
       title: "Styling Solutions",
-      items: ["Tailwind CSS", "CSS Modules", "Styled Components", "Emotion", "Sass/SCSS", "Plain CSS"],
+      items: [
+        "Tailwind CSS",
+        "CSS Modules",
+        "Styled Components",
+        "Emotion",
+        "Sass/SCSS",
+        "Plain CSS",
+      ],
     },
     {
       title: "Additional Libraries",
-      items: ["Redux Toolkit", "Zustand", "TanStack Query", "React Router", "Framer Motion", "ShadCN UI"],
+      items: [
+        "Redux Toolkit",
+        "Zustand",
+        "TanStack Query",
+        "React Router",
+        "Framer Motion",
+        "ShadCN UI",
+      ],
     },
   ];
 
@@ -193,8 +268,13 @@ function Features() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {features.map((feature, idx) => (
-          <div key={idx} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-            <h3 className="text-xl font-bold mb-4 text-cyan-400">{feature.title}</h3>
+          <div
+            key={idx}
+            className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6"
+          >
+            <h3 className="text-xl font-bold mb-4 text-cyan-400">
+              {feature.title}
+            </h3>
             <ul className="space-y-2">
               {feature.items.map((item, i) => (
                 <li key={i} className="flex items-start gap-2 text-zinc-300">
@@ -223,15 +303,21 @@ function Frameworks() {
 
       <div className="space-y-6">
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="text-2xl font-bold mb-4 text-white">Frontend Frameworks</h3>
+          <h3 className="text-2xl font-bold mb-4 text-white">
+            Frontend Frameworks
+          </h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
               <h4 className="font-bold text-cyan-400 mb-2">React + Vite</h4>
-              <p className="text-sm text-zinc-400">Fast HMR, modern build tool</p>
+              <p className="text-sm text-zinc-400">
+                Fast HMR, modern build tool
+              </p>
             </div>
             <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
               <h4 className="font-bold text-cyan-400 mb-2">Next.js</h4>
-              <p className="text-sm text-zinc-400">App Router with TypeScript</p>
+              <p className="text-sm text-zinc-400">
+                App Router with TypeScript
+              </p>
             </div>
             <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
               <h4 className="font-bold text-cyan-400 mb-2">Vue.js + Vite</h4>
@@ -241,14 +327,18 @@ function Frameworks() {
         </div>
 
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h3 className="text-2xl font-bold mb-4 text-white">Backend Frameworks</h3>
+          <h3 className="text-2xl font-bold mb-4 text-white">
+            Backend Frameworks
+          </h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700">
               <h4 className="font-bold text-cyan-400 mb-2">Express.js</h4>
               <p className="text-sm text-zinc-400">Minimalist & flexible</p>
             </div>
             <div className="p-4 rounded-lg bg-zinc-800/50 border border-zinc-700 opacity-60">
-              <h4 className="font-bold text-zinc-400 mb-2">NestJS (Coming Soon)</h4>
+              <h4 className="font-bold text-zinc-400 mb-2">
+                NestJS (Coming Soon)
+              </h4>
               <p className="text-sm text-zinc-500">Enterprise TypeScript</p>
             </div>
           </div>
@@ -292,16 +382,24 @@ function CLIReference() {
           <h3 className="text-2xl font-bold mb-4 text-white">Commands</h3>
           <div className="space-y-4">
             <div className="border-l-4 border-cyan-500 pl-4">
-              <code className="text-cyan-400 font-mono">initkit [project-name] [options]</code>
-              <p className="text-zinc-400 mt-2">Create a new project (default command)</p>
+              <code className="text-cyan-400 font-mono">
+                initkit [project-name] [options]
+              </code>
+              <p className="text-zinc-400 mt-2">
+                Create a new project (default command)
+              </p>
             </div>
             <div className="border-l-4 border-cyan-500 pl-4">
               <code className="text-cyan-400 font-mono">initkit list</code>
-              <p className="text-zinc-400 mt-2">List available templates and frameworks</p>
+              <p className="text-zinc-400 mt-2">
+                List available templates and frameworks
+              </p>
             </div>
             <div className="border-l-4 border-cyan-500 pl-4">
               <code className="text-cyan-400 font-mono">initkit info</code>
-              <p className="text-zinc-400 mt-2">Display CLI information and version</p>
+              <p className="text-zinc-400 mt-2">
+                Display CLI information and version
+              </p>
             </div>
             <div className="border-l-4 border-cyan-500 pl-4">
               <code className="text-cyan-400 font-mono">initkit --help</code>
@@ -364,17 +462,20 @@ function Examples() {
     {
       title: "React + TypeScript + Tailwind",
       command: "initkit my-react-app",
-      description: "Select: Frontend Only → React → TypeScript → Tailwind CSS → ESLint + Prettier",
+      description:
+        "Select: Frontend Only → React → TypeScript → Tailwind CSS → ESLint + Prettier",
     },
     {
       title: "Next.js with TypeScript",
       command: "initkit nextjs-app",
-      description: "Select: Frontend Only → Next.js → TypeScript → Tailwind CSS",
+      description:
+        "Select: Frontend Only → Next.js → TypeScript → Tailwind CSS",
     },
     {
       title: "Express Backend API",
       command: "initkit api-server",
-      description: "Select: Backend Only → Express → JavaScript → MVC structure",
+      description:
+        "Select: Backend Only → Express → JavaScript → MVC structure",
     },
     {
       title: "Quick Start with Defaults",
@@ -395,10 +496,17 @@ function Examples() {
 
       <div className="grid gap-6">
         {examples.map((example, idx) => (
-          <div key={idx} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-            <h3 className="text-xl font-bold mb-3 text-cyan-400">{example.title}</h3>
+          <div
+            key={idx}
+            className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6"
+          >
+            <h3 className="text-xl font-bold mb-3 text-cyan-400">
+              {example.title}
+            </h3>
             <pre className="bg-black rounded-lg p-4 mb-3 overflow-x-auto">
-              <code className="text-cyan-400 font-mono text-sm">{example.command}</code>
+              <code className="text-cyan-400 font-mono text-sm">
+                {example.command}
+              </code>
             </pre>
             <p className="text-zinc-400 text-sm">{example.description}</p>
           </div>
@@ -406,9 +514,12 @@ function Examples() {
       </div>
 
       <div className="mt-8 rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-6">
-        <h3 className="text-xl font-bold mb-3 text-cyan-400">Interactive Prompt Flow</h3>
+        <h3 className="text-xl font-bold mb-3 text-cyan-400">
+          Interactive Prompt Flow
+        </h3>
         <p className="text-zinc-300 mb-3">
-          InitKit uses an intelligent 13-question flow that adapts based on your project type:
+          InitKit uses an intelligent 13-question flow that adapts based on your
+          project type:
         </p>
         <ol className="list-decimal list-inside space-y-2 text-zinc-300 text-sm">
           <li>Project Type (Frontend, Backend, or Library)</li>

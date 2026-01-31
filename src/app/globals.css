@@ -1,20 +1,10 @@
 @import "tailwindcss";
 
-/* Chillax Font Family */
+/* Chillax Font Family - Static Weights Only (Turbopack Compatible) */
 @font-face {
   font-family: "Chillax";
-  src: url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Variable.woff2")
-      format("woff2-variations"),
-    url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Variable.woff")
-      format("woff-variations");
-  font-weight: 200 700;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Chillax";
-  src: url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Extralight.woff2")
+  src:
+    url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Extralight.woff2")
       format("woff2"),
     url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Extralight.woff")
       format("woff");
@@ -25,7 +15,8 @@
 
 @font-face {
   font-family: "Chillax";
-  src: url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Light.woff2")
+  src:
+    url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Light.woff2")
       format("woff2"),
     url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Light.woff")
       format("woff");
@@ -36,7 +27,8 @@
 
 @font-face {
   font-family: "Chillax";
-  src: url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Regular.woff2")
+  src:
+    url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Regular.woff2")
       format("woff2"),
     url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Regular.woff")
       format("woff");
@@ -47,7 +39,8 @@
 
 @font-face {
   font-family: "Chillax";
-  src: url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Medium.woff2")
+  src:
+    url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Medium.woff2")
       format("woff2"),
     url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Medium.woff")
       format("woff");
@@ -58,7 +51,8 @@
 
 @font-face {
   font-family: "Chillax";
-  src: url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Semibold.woff2")
+  src:
+    url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Semibold.woff2")
       format("woff2"),
     url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Semibold.woff")
       format("woff");
@@ -69,7 +63,8 @@
 
 @font-face {
   font-family: "Chillax";
-  src: url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Bold.woff2")
+  src:
+    url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Bold.woff2")
       format("woff2"),
     url("/fonts/Chillax_Complete/Fonts/WEB/fonts/Chillax-Bold.woff")
       format("woff");
