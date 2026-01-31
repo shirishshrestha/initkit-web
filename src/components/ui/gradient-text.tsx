@@ -1,59 +1,137 @@
 "use client";
 
-import { CSSProperties } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useAnimationFrame,
+  useTransform,
+} from "framer-motion";
 
 interface GradientTextProps {
-  colors: string[];
+  children: React.ReactNode;
+  className?: string;
+  colors?: string[];
   animationSpeed?: number;
   showBorder?: boolean;
-  className?: string;
-  children: React.ReactNode;
+  direction?: "horizontal" | "vertical" | "diagonal";
+  pauseOnHover?: boolean;
+  yoyo?: boolean;
 }
 
 export default function GradientText({
-  colors,
+  children,
+  className = "",
+  colors = ["#5227FF", "#FF9FFC", "#B19EEF"],
   animationSpeed = 8,
   showBorder = false,
-  className = "",
-  children,
+  direction = "horizontal",
+  pauseOnHover = false,
+  yoyo = true,
 }: GradientTextProps) {
-  const gradientColors = colors.join(", ");
+  const [isPaused, setIsPaused] = useState(false);
+  const progress = useMotionValue(0);
+  const elapsedRef = useRef(0);
+  const lastTimeRef = useRef<number | null>(null);
 
-  const gradientStyle: CSSProperties = {
-    backgroundImage: `linear-gradient(to right, ${gradientColors}, ${colors[0]})`,
-    backgroundSize: "200% auto",
-    backgroundClip: "text",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    animation: `gradient ${animationSpeed}s linear infinite`,
+  const animationDuration = animationSpeed * 1000;
+
+  useAnimationFrame((time) => {
+    if (isPaused) {
+      lastTimeRef.current = null;
+      return;
+    }
+
+    if (lastTimeRef.current === null) {
+      lastTimeRef.current = time;
+      return;
+    }
+
+    const deltaTime = time - lastTimeRef.current;
+    lastTimeRef.current = time;
+    elapsedRef.current += deltaTime;
+
+    if (yoyo) {
+      const fullCycle = animationDuration * 2;
+      const cycleTime = elapsedRef.current % fullCycle;
+
+      if (cycleTime < animationDuration) {
+        progress.set((cycleTime / animationDuration) * 100);
+      } else {
+        progress.set(
+          100 - ((cycleTime - animationDuration) / animationDuration) * 100,
+        );
+      }
+    } else {
+      progress.set((elapsedRef.current / animationDuration) * 100);
+    }
+  });
+
+  useEffect(() => {
+    elapsedRef.current = 0;
+    progress.set(0);
+  }, [animationSpeed, progress, yoyo]);
+
+  const backgroundPosition = useTransform(progress, (p) => {
+    if (direction === "horizontal") {
+      return `${p}% 50%`;
+    } else if (direction === "vertical") {
+      return `50% ${p}%`;
+    } else {
+      return `${p}% 50%`;
+    }
+  });
+
+  const handleMouseEnter = useCallback(() => {
+    if (pauseOnHover) setIsPaused(true);
+  }, [pauseOnHover]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (pauseOnHover) setIsPaused(false);
+  }, [pauseOnHover]);
+
+  const gradientAngle =
+    direction === "horizontal"
+      ? "to right"
+      : direction === "vertical"
+        ? "to bottom"
+        : "to bottom right";
+  const gradientColors = [...colors, colors[0]].join(", ");
+
+  const gradientStyle = {
+    backgroundImage: `linear-gradient(${gradientAngle}, ${gradientColors})`,
+    backgroundSize:
+      direction === "horizontal"
+        ? "300% 100%"
+        : direction === "vertical"
+          ? "100% 300%"
+          : "300% 300%",
+    backgroundRepeat: "repeat" as const,
   };
 
-  const borderStyle: CSSProperties = showBorder
-    ? {
-        textShadow: `
-          -1px -1px 0 ${colors[0]},
-          1px -1px 0 ${colors[0]},
-          -1px 1px 0 ${colors[0]},
-          1px 1px 0 ${colors[0]}
-        `,
-      }
-    : {};
-
   return (
-    <>
-      <style jsx>{`
-        @keyframes gradient {
-          0% {
-            background-position: 0% center;
-          }
-          100% {
-            background-position: 200% center;
-          }
-        }
-      `}</style>
-      <span className={className} style={{ ...gradientStyle, ...borderStyle }}>
+    <motion.div
+      className={`relative inline-block ${className}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {showBorder && (
+        <motion.div
+          className="absolute inset-0"
+          style={{ ...gradientStyle, backgroundPosition }}
+        />
+      )}
+      <motion.div
+        className="bg-clip-text text-transparent"
+        style={{
+          ...gradientStyle,
+          backgroundPosition,
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
         {children}
-      </span>
-    </>
+      </motion.div>
+    </motion.div>
   );
 }

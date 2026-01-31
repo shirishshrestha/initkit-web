@@ -34,7 +34,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center px-4 py-20 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-32 overflow-hidden">
       {/* LaserFlow Background */}
       <div className="absolute inset-0 z-0">
         <LaserFlow
@@ -50,7 +50,8 @@ export function Hero() {
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60 z-0" />
 
-      <div className="container relative z-10 mx-auto max-w-7xl text-center space-y-8">
+      <div className="container relative z-10 mx-auto max-w-7xl text-center space-y-12">
+        {/* Version Badge */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,7 +62,8 @@ export function Hero() {
           v1.1.0 – Now with Advanced LaserFlow
         </motion.div>
 
-        <div className="space-y-4 max-w-5xl mx-auto">
+        {/* Hero Content */}
+        <div className="space-y-8 max-w-5xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,11 +74,11 @@ export function Hero() {
               colors={["#5227FF", "#FF9FFC", "#B19EEF", "#5227FF"]}
               animationSpeed={8}
               showBorder={false}
-              className="inline-block"
             >
               Scaffold Production-Ready Web Projects in Seconds
             </GradientText>
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -94,11 +96,12 @@ export function Hero() {
           </motion.p>
         </div>
 
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4 pt-4"
         >
           <button
             onClick={copyCommand}
@@ -118,7 +121,12 @@ export function Hero() {
         </motion.div>
 
         {/* Code Window */}
-        <div className="grid lg:grid-cols-2 gap-8 mt-16 max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 0.6 }}
+          className="grid lg:grid-cols-2 gap-8 mt-20 max-w-6xl mx-auto pt-8"
+        >
           <CodeWindow
             code={exampleCode}
             language="typescript"
@@ -127,7 +135,7 @@ export function Hero() {
           <div className="hidden lg:block">
             <Terminal className="w-full" />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

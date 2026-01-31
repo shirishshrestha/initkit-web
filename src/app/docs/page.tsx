@@ -67,8 +67,8 @@ export default function DocsPage() {
 
       <div className="relative max-w-7xl mx-auto px-6 py-20 flex gap-8">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-64 flex-shrink-0">
-          <div className="sticky top-24 rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6">
+        <aside className="hidden lg:block w-64 shrink-0">
+          <div className="sticky top-28 rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
             <h3 className="text-sm font-bold text-zinc-400 mb-4 uppercase tracking-wider">
               On This Page
             </h3>
