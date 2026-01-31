@@ -95,7 +95,7 @@ export default function DocsPage() {
           {/* Hero Section */}
           <div className="mb-16">
             <div className="flex items-center gap-2 mb-4">
-              <Badge variant="info">v1.1.0</Badge>
+              <Badge variant="info">v1.2.2</Badge>
               <Badge variant="success">Stable</Badge>
             </div>
             <h1

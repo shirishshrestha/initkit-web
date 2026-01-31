@@ -59,7 +59,7 @@ export function Hero() {
           className="inline-flex items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm text-purple-300 backdrop-blur-sm"
         >
           <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
-          v1.1.0 – Now with Advanced LaserFlow
+          v1.2.2 – Now with Advanced LaserFlow
         </motion.div>
 
         {/* Hero Content */}
