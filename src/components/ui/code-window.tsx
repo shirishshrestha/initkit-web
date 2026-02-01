@@ -12,7 +12,7 @@ interface CodeWindowProps {
 
 export function CodeWindow({
   code,
-  language = "tsx",
+  language = "bash",
   className = "",
 }: CodeWindowProps) {
   const [copied, setCopied] = useState(false);
@@ -61,7 +61,7 @@ export function CodeWindow({
 
       {/* Code Content */}
       <div className="p-6 overflow-x-auto">
-        <pre className="text-sm leading-relaxed">
+        <pre className="text-sm leading-relaxed whitespace-break-spaces">
           <code className="font-mono text-zinc-100">{code}</code>
         </pre>
       </div>

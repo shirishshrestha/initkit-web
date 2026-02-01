@@ -9,20 +9,7 @@ import { ArrowRight, Copy, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const exampleCode = `import { initkit } from 'initkit';
-
-// Create a new React + TypeScript project
-await initkit.create({
-  name: 'my-awesome-app',
-  template: 'react-vite',
-  typescript: true,
-  styling: 'tailwind',
-  features: ['eslint', 'prettier', 'docker']
-});
-
-// ✓ Live npm versions fetched
-// ✓ Smart validation enabled
-// ✓ Production-ready setup in 30s`;
+const exampleCode = `npx initkit my-awesome-app --yes`;
 
 export function Hero() {
   const [copied, setCopied] = useState(false);
@@ -129,8 +116,8 @@ export function Hero() {
         >
           <CodeWindow
             code={exampleCode}
-            language="typescript"
-            className="hidden lg:block"
+            language="bash"
+            className="hidden lg:block h-fit"
           />
           <div className="hidden lg:block">
             <Terminal className="w-full" />

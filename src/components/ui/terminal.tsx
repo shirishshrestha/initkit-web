@@ -80,7 +80,7 @@ export function Terminal({ className }: { className?: string }) {
           >
             {step.type === "command" && (
               <span>
-                <span className="text-green-400">\u279c</span> {step.text}
+                <span className="text-green-400">\user</span> {step.text}
               </span>
             )}
             {step.type !== "command" && step.text}
