@@ -62,7 +62,10 @@ export function CodeWindow({
       {/* Code Content */}
       <div className="p-6 overflow-x-auto">
         <pre className="text-sm leading-relaxed whitespace-break-spaces">
-          <code className="font-mono text-zinc-100">{code}</code>
+          <code className="font-mono text-zinc-100">
+            {code} <br />#skips all prompts and uses best-practice defaults for
+            frontend projects.
+          </code>
         </pre>
       </div>
 
