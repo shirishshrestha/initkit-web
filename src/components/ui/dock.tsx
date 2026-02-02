@@ -172,39 +172,34 @@ export default function Dock({
 
   return (
     <motion.div
-      style={{ height, scrollbarWidth: "none" }}
-      className="mx-2 flex max-w-full items-center relative z-10"
+      onMouseMove={({ pageX }) => {
+        isHovered.set(1);
+        mouseX.set(pageX);
+      }}
+      onMouseLeave={() => {
+        isHovered.set(0);
+        mouseX.set(Infinity);
+      }}
+      className={`fixed bottom-2 left-1/2 -translate-x-1/2 flex items-end w-fit gap-4 rounded-2xl bg-[#060010] border border-[#222] px-2 pb-2 ${className}`}
+      style={{ height: panelHeight }}
+      role="toolbar"
+      aria-label="Application dock"
     >
-      <motion.div
-        onMouseMove={({ pageX }) => {
-          isHovered.set(1);
-          mouseX.set(pageX);
-        }}
-        onMouseLeave={() => {
-          isHovered.set(0);
-          mouseX.set(Infinity);
-        }}
-        className={`fixed bottom-2 left-1/2 -translate-x-1/2 flex items-end w-fit gap-4 rounded-2xl bg-[#060010] border border-[#222] px-2 pb-2 ${className}`}
-        style={{ height: panelHeight }}
-        role="toolbar"
-        aria-label="Application dock"
-      >
-        {items.map((item, index) => (
-          <DockItem
-            key={index}
-            onClick={item.onClick}
-            className={item.className}
-            mouseX={mouseX}
-            spring={spring}
-            distance={distance}
-            magnification={magnification}
-            baseItemSize={baseItemSize}
-          >
-            <DockIcon>{item.icon}</DockIcon>
-            <DockLabel>{item.label}</DockLabel>
-          </DockItem>
-        ))}
-      </motion.div>
+      {items.map((item, index) => (
+        <DockItem
+          key={index}
+          onClick={item.onClick}
+          className={item.className}
+          mouseX={mouseX}
+          spring={spring}
+          distance={distance}
+          magnification={magnification}
+          baseItemSize={baseItemSize}
+        >
+          <DockIcon>{item.icon}</DockIcon>
+          <DockLabel>{item.label}</DockLabel>
+        </DockItem>
+      ))}
     </motion.div>
   );
 }
