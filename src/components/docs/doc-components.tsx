@@ -146,7 +146,7 @@ export function Callout({
       )}
     >
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 mt-0.5">{style.icon}</div>
+        <div className="shrink-0 mt-0.5">{style.icon}</div>
         <div className="flex-1 space-y-2">
           {title && (
             <h4 className={cn("font-bold", style.titleColor)}>{title}</h4>
@@ -183,19 +183,19 @@ export function PropsTable({ props, className }: PropsTableProps) {
       )}
     >
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full min-w-160">
           <thead className="bg-zinc-800/50">
             <tr>
-              <th className="text-left py-3 px-6 text-sm font-bold text-purple-400">
+              <th className="text-left py-3 px-3 sm:px-6 text-xs sm:text-sm font-bold text-purple-400">
                 Prop
               </th>
-              <th className="text-left py-3 px-6 text-sm font-bold text-purple-400">
+              <th className="text-left py-3 px-3 sm:px-6 text-xs sm:text-sm font-bold text-purple-400">
                 Type
               </th>
-              <th className="text-left py-3 px-6 text-sm font-bold text-purple-400">
+              <th className="text-left py-3 px-3 sm:px-6 text-xs sm:text-sm font-bold text-purple-400">
                 Default
               </th>
-              <th className="text-left py-3 px-6 text-sm font-bold text-purple-400">
+              <th className="text-left py-3 px-3 sm:px-6 text-xs sm:text-sm font-bold text-purple-400">
                 Description
               </th>
             </tr>
@@ -204,11 +204,11 @@ export function PropsTable({ props, className }: PropsTableProps) {
             {props.map((prop, index) => (
               <tr
                 key={index}
-                className="border-t border-white/5 hover:bg-white/[0.02] transition-colors"
+                className="border-t border-white/5 hover:bg-white/2 transition-colors"
               >
-                <td className="py-3 px-6">
+                <td className="py-3 px-3 sm:px-6">
                   <div className="flex items-center gap-2">
-                    <code className="font-mono text-sm text-zinc-300">
+                    <code className="font-mono text-xs sm:text-sm text-zinc-300">
                       {prop.name}
                     </code>
                     {prop.required && (
@@ -218,13 +218,13 @@ export function PropsTable({ props, className }: PropsTableProps) {
                     )}
                   </div>
                 </td>
-                <td className="py-3 px-6 font-mono text-sm text-cyan-400">
+                <td className="py-3 px-3 sm:px-6 font-mono text-xs sm:text-sm text-cyan-400">
                   {prop.type}
                 </td>
-                <td className="py-3 px-6 font-mono text-sm text-zinc-400">
+                <td className="py-3 px-3 sm:px-6 font-mono text-xs sm:text-sm text-zinc-400">
                   {prop.default || "—"}
                 </td>
-                <td className="py-3 px-6 text-sm text-zinc-400">
+                <td className="py-3 px-3 sm:px-6 text-xs sm:text-sm text-zinc-400">
                   {prop.description}
                 </td>
               </tr>
@@ -252,22 +252,22 @@ export function Step({ number, title, children, className }: StepProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "rounded-2xl border border-white/10 bg-zinc-900/50 p-8",
+        "rounded-2xl border border-white/10 bg-zinc-900/50 p-4 sm:p-8",
         className,
       )}
     >
-      <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-purple-500/30">
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className="shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-linear-to-br from-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-purple-500/30">
           {number}
         </div>
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 space-y-3 sm:space-y-4 min-w-0">
           <h3
-            className="text-2xl font-bold text-white"
+            className="text-lg sm:text-2xl font-bold text-white"
             style={{ fontFamily: "var(--font-inter)" }}
           >
             {title}
           </h3>
-          <div className="text-zinc-300">{children}</div>
+          <div className="text-sm sm:text-base text-zinc-300">{children}</div>
         </div>
       </div>
     </motion.div>
@@ -295,17 +295,19 @@ export function FeatureCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "group p-6 rounded-2xl border border-white/5 bg-zinc-900/50 hover:border-purple-500/30 transition-all",
+        "group p-4 sm:p-6 rounded-2xl border border-white/5 bg-zinc-900/50 hover:border-purple-500/30 transition-all",
         className,
       )}
     >
-      <div className="space-y-4">
-        <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-400">
+      <div className="space-y-3 sm:space-y-4">
+        <div className="inline-flex p-2 sm:p-3 rounded-xl bg-linear-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-400">
           {icon}
         </div>
         <div>
-          <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
-          <p className="text-sm text-zinc-400">{description}</p>
+          <h3 className="text-base sm:text-lg font-bold text-white mb-2">
+            {title}
+          </h3>
+          <p className="text-sm text-zinc-400 leading-relaxed">{description}</p>
         </div>
       </div>
     </motion.div>

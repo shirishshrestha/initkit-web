@@ -20,9 +20,9 @@ export function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-50 flex w-full items-center justify-center p-4 pointer-events-none"
     >
-      <nav className="pointer-events-auto flex items-center gap-6 rounded-full border border-zinc-800 bg-zinc-900/80 px-6 py-3 backdrop-blur-md shadow-lg">
+      <nav className="pointer-events-auto flex w-full justify-between sm:w-fit items-center gap-6 rounded-full border border-zinc-800 bg-zinc-900/80 px-6 py-3 backdrop-blur-md shadow-lg">
         <Link
           href="/"
           className="flex items-center gap-2 font-bold text-white mr-4"
@@ -36,7 +36,7 @@ export function Navbar() {
             key={link.href}
             href={link.href}
             className={cn(
-              "text-sm transition-colors hover:text-cyan-400",
+              "text-sm hidden sm:block transition-colors hover:text-cyan-400",
               pathname === link.href ? "text-cyan-400" : "text-zinc-400",
             )}
             target={link.href.startsWith("http") ? "_blank" : undefined}

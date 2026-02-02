@@ -80,7 +80,7 @@ export default function RootLayout({
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </head>
       <body
-        className="antialiased bg-black text-white selection:bg-purple-500/30 selection:text-purple-200 flex flex-col min-h-screen"
+        className="antialiased bg-black overflow-x-hidden text-white selection:bg-purple-500/30 selection:text-purple-200 flex flex-col min-h-screen"
         style={{
           fontFamily: "Chillax, var(--font-inter), system-ui, sans-serif",
         }}

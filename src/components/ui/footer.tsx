@@ -20,8 +20,9 @@ export function Footer() {
           <Heart className="w-3 h-3 text-red-500 fill-red-500" />
           <span>by</span>
           <a
-            href="https://github.com/shirishshrestha"
+            href="https://shirishshrestha.com.np"
             className="text-white hover:underline"
+            target="_blank"
           >
             Shirish Shrestha
           </a>
@@ -31,12 +32,14 @@ export function Footer() {
           <Link
             href="https://github.com/shirishshrestha/initkit"
             className="text-zinc-400 hover:text-white transition-colors"
+            target="_blank"
           >
             <Github className="w-5 h-5" />
           </Link>
           <Link
             href="https://www.npmjs.com/package/initkit"
             className="text-zinc-400 hover:text-white transition-colors font-mono text-sm hover:underline"
+            target="_blank"
           >
             npm
           </Link>

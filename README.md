@@ -151,7 +151,7 @@ npm start
 
 ## 🔗 Links
 
-- **Live Site**: [initkit-web.vercel.app](https://initkit-web.vercel.app) (if deployed)
+- **Live Site**: [initkit.shirishshrestha.com.np/](https://initkit.shirishshrestha.com.np/)
 - **GitHub**: [github.com/shirishshrestha/initkit-web](https://github.com/shirishshrestha/initkit-web)
 - **NPM Package**: [npmjs.com/package/initkit](https://www.npmjs.com/package/initkit)
 

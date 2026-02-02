@@ -10,10 +10,46 @@ import {
   SectionHeading,
 } from "@/components/docs/doc-components";
 import { Terminal, Zap, Box, Settings, Rocket, Package } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { getInitkitVersion } from "@/lib/actions/npm";
 
 export default function DocsPage() {
   const [activeSection, setActiveSection] = useState("quick-start");
+  const [version, setVersion] = useState("1.2.5");
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    getInitkitVersion().then(setVersion);
+  }, []);
+
+  // Intersection Observer for scroll-based active section
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: 0,
+      },
+    );
+
+    // Observe all sections
+    const sections = document.querySelectorAll("section[id]");
+    sections.forEach((section) => {
+      observerRef.current?.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        observerRef.current?.unobserve(section);
+      });
+    };
+  }, []);
 
   const sections = [
     { id: "quick-start", label: "Quick Start" },
@@ -65,9 +101,9 @@ export default function DocsPage() {
         <div className="absolute top-0 right-1/4 w-px h-full bg-linear-to-b from-transparent via-pink-500/20 to-transparent" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 py-20 flex gap-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 flex gap-8">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-64 shrink-0 ">
+        <aside className="hidden lg:block w-64 shrink-0">
           <div className="rounded-2xl border fixed w-66 top-24 border-white/10 bg-zinc-900/50 backdrop-blur-sm p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
             <h3 className="text-sm font-bold text-zinc-400 mb-4 uppercase tracking-wider">
               On This Page
@@ -91,20 +127,20 @@ export default function DocsPage() {
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1 max-w-4xl">
+        <div className="flex-1 max-w-4xl w-full min-w-0">
           {/* Hero Section */}
-          <div className="mb-16">
+          <div className="mb-12 sm:mb-16">
             <div className="flex items-center gap-2 mb-4">
-              <Badge variant="info">v1.2.2</Badge>
+              <Badge variant="info">v{version}</Badge>
               <Badge variant="success">Stable</Badge>
             </div>
             <h1
-              className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400"
+              className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-linear-to-r from-purple-400 via-pink-400 to-purple-400 wrap-break-word"
               style={{ fontFamily: "var(--font-inter)" }}
             >
               InitKit Documentation
             </h1>
-            <p className="text-xl text-zinc-400 max-w-3xl leading-relaxed">
+            <p className="text-base sm:text-xl text-zinc-400 max-w-3xl leading-relaxed">
               The fastest way to bootstrap modern web projects. InitKit provides
               intelligent scaffolding for React, Vue, Next.js, Express, and
               full-stack applications with best practices built-in.
@@ -112,7 +148,7 @@ export default function DocsPage() {
           </div>
 
           {/* Quick Start Section */}
-          <section id="quick-start" className="mb-20 scroll-mt-24">
+          <section id="quick-start" className="mb-12 sm:mb-20 scroll-mt-24">
             <SectionHeading>Quick Start</SectionHeading>
             <div className="space-y-6">
               <Step number={1} title="Install InitKit">
@@ -172,9 +208,9 @@ export default function DocsPage() {
           </section>
 
           {/* Features Section */}
-          <section id="features" className="mb-20 scroll-mt-24">
+          <section id="features" className="mb-12 sm:mb-20 scroll-mt-24">
             <SectionHeading>Features</SectionHeading>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               <FeatureCard
                 icon={<Terminal className="w-6 h-6" />}
                 title="Interactive CLI"
@@ -209,7 +245,7 @@ export default function DocsPage() {
           </section>
 
           {/* CLI Options Section */}
-          <section id="cli-options" className="mb-20 scroll-mt-24">
+          <section id="cli-options" className="mb-12 sm:mb-20 scroll-mt-24">
             <SectionHeading>CLI Options</SectionHeading>
             <p className="text-zinc-400 mb-6">
               Customize your project setup with these command-line options:
@@ -225,11 +261,11 @@ export default function DocsPage() {
           </section>
 
           {/* Advanced Usage Section */}
-          <section id="advanced-usage" className="mb-20 scroll-mt-24">
+          <section id="advanced-usage" className="mb-12 sm:mb-20 scroll-mt-24">
             <SectionHeading>Advanced Usage</SectionHeading>
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-4">
                   Using a Specific Template
                 </h3>
                 <CodeBlock
@@ -264,12 +300,14 @@ export default function DocsPage() {
           </section>
 
           {/* Templates Section */}
-          <section id="templates" className="mb-20 scroll-mt-24">
+          <section id="templates" className="mb-12 sm:mb-20 scroll-mt-24">
             <SectionHeading>Available Templates</SectionHeading>
-            <div className="space-y-6">
-              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-2xl font-bold text-white">React</h3>
+            <div className="space-y-4 sm:space-y-6">
+              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-4 sm:p-8">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                    React
+                  </h3>
                   <Badge variant="success">Popular</Badge>
                 </div>
                 <p className="text-zinc-400 mb-4">
@@ -283,9 +321,11 @@ export default function DocsPage() {
                 />
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-2xl font-bold text-white">Next.js</h3>
+              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-4 sm:p-8">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                    Next.js
+                  </h3>
                   <Badge variant="success">Popular</Badge>
                 </div>
                 <p className="text-zinc-400 mb-4">
@@ -298,9 +338,11 @@ export default function DocsPage() {
                 />
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-2xl font-bold text-white">Express</h3>
+              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-4 sm:p-8">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                    Express
+                  </h3>
                 </div>
                 <p className="text-zinc-400 mb-4">
                   Backend API with Express, TypeScript, middleware, and database
@@ -312,9 +354,11 @@ export default function DocsPage() {
                 />
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-2xl font-bold text-white">Full-Stack</h3>
+              {/* <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-4 sm:p-8">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                    Full-Stack
+                  </h3>
                   <Badge variant="info">Monorepo</Badge>
                 </div>
                 <p className="text-zinc-400 mb-4">
@@ -325,12 +369,12 @@ export default function DocsPage() {
                   code="npx initkit my-fullstack-app --template fullstack"
                   language="bash"
                 />
-              </div>
+              </div> */}
             </div>
           </section>
 
           {/* Troubleshooting Section */}
-          <section id="troubleshooting" className="mb-20 scroll-mt-24">
+          <section id="troubleshooting" className="mb-12 sm:mb-20 scroll-mt-24">
             <SectionHeading>Troubleshooting</SectionHeading>
             <div className="space-y-6">
               <Callout type="warning" title="Permission Errors">
@@ -354,11 +398,11 @@ export default function DocsPage() {
           </section>
 
           {/* Footer CTA */}
-          <div className="mt-20 p-10 rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-pink-500/10">
-            <h2 className="text-3xl font-bold text-white mb-4">
+          <div className="mt-12 sm:mt-20 p-6 sm:p-10 rounded-2xl sm:rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-pink-500/10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               Ready to build something amazing?
             </h2>
-            <p className="text-zinc-300 mb-6">
+            <p className="text-sm sm:text-base text-zinc-300 mb-6">
               Get started with InitKit today and experience the fastest way to
               scaffold modern web projects.
             </p>
